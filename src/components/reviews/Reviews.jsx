@@ -13,7 +13,7 @@ const Reviews = () => {
     .then((data) => context.handleData(data, 'results'))
     .catch(context.handleError);
     return () => {}
-  }, []);
+  });
   
   return (
     <div>

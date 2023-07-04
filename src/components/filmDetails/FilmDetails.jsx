@@ -17,7 +17,7 @@ const FilmDetails  = () => {
     getMovieDetails(movieId)
       .then(context.handleDataMovie)
       .catch(context.handleError);
-  }, []);
+  },);
 // console.log(context.data);
   return (
     <>
