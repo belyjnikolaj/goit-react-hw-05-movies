@@ -13,7 +13,7 @@ const Cast = () => {
     .then((data) => context.handleData(data, 'cast'))
     .catch(context.handleError);
     return () => {}
- }, []);
+ });
   return (
     <div>
       <ul>
