@@ -1,0 +1,9 @@
+.data__container{
+    display: flex;
+}
+.img__container{
+    min-width: 200px;
+}
+.genres{
+    display: flex;
+}
