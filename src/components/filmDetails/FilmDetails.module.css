@@ -1,9 +1,4 @@
-.data__container{
-    display: flex;
+.container{
+padding: 0 10px 20px 10px;
 }
-.img__container{
-    min-width: 200px;
-}
-.genres{
-    display: flex;
-}
+

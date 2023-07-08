@@ -3,7 +3,10 @@ const BASE_URL = 'https://api.themoviedb.org/3';
 const API_KEY = 'bb37d49c53a672415b33eb59b7e6ce07';
 
 export const fetchData = endpoint => {
-  return fetch(`${BASE_URL}${endpoint}?api_key=${API_KEY}`).then(resp => {
+  const url = new URL(`${BASE_URL}${endpoint}`);
+  url.searchParams.append('api_key', API_KEY);
+
+  return fetch(url).then(resp => {
     if (!resp.ok) {
       throw new Error(resp.statusText);
     }

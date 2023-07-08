@@ -1,0 +1,16 @@
+.section__info{
+    padding: 20px 0;
+    border-top: solid 3px rgb(196, 195, 195);
+    border-bottom: solid 3px rgb(196, 195, 195);
+    font-size: 14px;
+}
+.list {
+    padding: 20px 0 0 20px;
+    /* font-size: 14px; */
+}
+
+.item{
+    list-style: inside;
+    margin-bottom: 5px;
+}
+

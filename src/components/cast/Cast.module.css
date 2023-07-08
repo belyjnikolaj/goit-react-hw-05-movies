@@ -1,0 +1,17 @@
+.list__cast{
+    padding-left: 20px;
+}
+
+.item{
+    padding-top: 10px;
+}
+
+.name{
+    font-size: 14px;
+    padding-top: 10px;
+}
+
+.text{
+    font-size: 14px;
+    padding-top: 20px;
+}

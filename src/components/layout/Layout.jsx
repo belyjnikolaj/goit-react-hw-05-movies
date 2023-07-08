@@ -1,17 +1,20 @@
-// import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
 
 import Header from "components/header/Header"
+import { Suspense } from 'react'
+import Loader from 'components/loader/Loader'
 
-// import { nanoid } from 'nanoid';
-
-const Layout = () => { 
-    
-  
+const Layout = () => {   
     return (
         <>
-            <Header />
-            <Outlet />
+            <div className='container'>
+                <Header />
+                <Suspense fallback={<div><Loader /></div>}>
+                    <Outlet />
+                </Suspense>
+            </div>
+            
+            
         </>
     )
 }

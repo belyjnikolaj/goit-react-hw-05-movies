@@ -9,8 +9,7 @@
 a {
     color: #2207ef;
     cursor: pointer;
-    text-decoration: underline;
-    
+    text-decoration: underline;    
 }
 ul,
 ol,
@@ -34,8 +33,9 @@ h6 {
 }
 html,
 body {
-   
+    font-family: sans-serif;
     line-height: 1;
+    background-color: #d3d0d0;
 }
 textarea,
 button,
@@ -47,5 +47,14 @@ input {
 }
 button {
     cursor: pointer;
+}
+.container {
+    width: 100%;
+    max-width: 1280px;
+    min-width: 200px;
+    min-height: 745px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fff;
 }
 

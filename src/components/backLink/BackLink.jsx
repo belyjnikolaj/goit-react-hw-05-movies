@@ -1,15 +1,18 @@
-import React from 'react'
-import css from './BackLink.module.css'
-import { HiArrowLeft } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import { HiArrowLeft } from 'react-icons/hi';
 
-const BackLink = ({ to, children }) => {
+import css from './BackLink.module.css';
+
+const BackLink = ({ children, to }) => { 
+
   return (
-    <Link className={css['back__link']} to={to}>
-      <HiArrowLeft size="24" />
-      {children}
-    </Link>
+    <section className={css['back__link-section']}>
+      <Link className={css['back__link']} to={to}>
+        <HiArrowLeft size="14" />
+        {children}
+      </Link>
+    </section>    
   );
 };
 
-export default BackLink
+export default BackLink;

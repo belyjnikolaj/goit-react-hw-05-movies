@@ -1,7 +1,9 @@
+import Loader from 'components/loader/Loader';
 import { useCastomContext } from 'context/Context'
-import React, { useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 import { Outlet, useParams } from 'react-router-dom';
 import { getMovieReviews } from 'services/endpointFetch';
+import  css from './Reviews.module.css';
 
 const Reviews = () => {
   const context = useCastomContext()
@@ -13,24 +15,26 @@ const Reviews = () => {
     .then((data) => context.handleData(data, 'results'))
     .catch(context.handleError);
     return () => {}
-  });
+  }, [movieId]);
   
   return (
-    <div>
-      <ul>
+    <>
+      <ul className={css.list}>
         {context.data.length > 0 ? (
           context.data.map((el) => (
-            <li key={el.id}>
-              <p>Author: {el.author}</p>
-              <p>{el.content}</p>
+            <li className={css.item} key={el.id}>
+              <h2 className={css.name}>Author: {el.author}</h2>
+              <p className={css.text}>{el.content}</p>
             </li>
           ))
         ) : (
-          <li>We don't have any reviews for this movie.</li>
+          <p className={css.text}>We don't have any reviews for this movie.</p>
         )}
       </ul>
-      <Outlet />
-    </div>
+      <Suspense fallback={<div><Loader /></div>}>
+         <Outlet />
+      </Suspense>
+    </>
   )
 }
 

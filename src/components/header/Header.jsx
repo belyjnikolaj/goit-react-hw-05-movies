@@ -24,7 +24,7 @@ const Header = () => {
           <StyledLink className={css['styled-link']} aria-current="page" to="/">Home</StyledLink>
         </li>
         <li className={css["nav__item"]}>
-          <StyledLink className={css['styled-link']} to="/movies">Moves</StyledLink>
+          <StyledLink to="/movies">Movies</StyledLink>
         </li>  
       </ul>            
     </nav>

@@ -1,7 +1,10 @@
-import { useCastomContext } from 'context/Context'
-import { useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 import { Outlet, useParams } from 'react-router-dom';
+
+import Loader from 'components/loader';
+import { useCastomContext } from 'context/Context'
 import { getMovieCredits } from 'services/endpointFetch';
+import css from "./Cast.module.css";
 
 const Cast = () => {
   const context = useCastomContext()
@@ -13,25 +16,27 @@ const Cast = () => {
     .then((data) => context.handleData(data, 'cast'))
     .catch(context.handleError);
     return () => {}
- });
+  }, [movieId]);
+  
   return (
-    <div>
-      <ul>
+    <>
+      <ul className={css['list__cast']}>
         {context.data.map((el) => (
-          <li key={el.id}>
-            <img src={`${
+          <li className={css.item} key={el.id}>
+            <img className={css.img} src={`${
                 el.profile_path
                   ? "https://image.tmdb.org/t/p/w92" + el.profile_path
                   : "https://www.reelviews.net/resources/img/default_poster.jpg"
               }`} width='92px' alt={el.name || "No name"} />
-             {/* <img src={`https://image.tmdb.org/t/p/w92${el.profile_path}`} alt="" /> */}
-            <h2>{el.name}</h2>
-            <p>character { el.character }</p>
+            <h2 className={css.name}>{el.name}</h2>
+            <p className={css.text}>Character: { el.character }</p>
           </li>
         ))}   
       </ul>
-      <Outlet />
-    </div>
+      <Suspense fallback={<Loader />}>
+         <Outlet />
+      </Suspense>     
+    </>
   )
 }
 

@@ -5,8 +5,8 @@ export const getTrendingFilms = () => {
   return fetchData(endpoint);
 };
 
-export const searchMovies = query => {
-  const endpoint = `/search/movie?query=${encodeURIComponent(query)}`;
+export const searchMovies = (query) => {
+  const endpoint = `/search/movie?query=${query}`;
   return fetchData(endpoint);
 };
 
