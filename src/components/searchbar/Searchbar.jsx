@@ -12,25 +12,11 @@ const Searchbar = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const filterQuery = searchParams.get('query') ?? '';
   const [error, setError] = useState(null); // Стан для зберігання помилки
-
+  const [prevQuery, setPrevQuery] = useState(null);
   useEffect(() => {
     context.setError(null);
-    setError(null);
-    handleFetch(filterQuery);
-  }, []);
-
-  const handleChange = ({ target }) => {
-    const queryValue = target.value;
-    setSearchParams({ query: queryValue });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    handleFetch(filterQuery);
-  };
-
-  const handleFetch = () => {
-    searchMovies(filterQuery)
+    if (filterQuery !== prevQuery) {
+      searchMovies(filterQuery)
       .then((data) => {
         context.handleData(data, 'results');
         setError(null);
@@ -39,7 +25,22 @@ const Searchbar = () => {
         context.handleError(error);
         setError(error.message);
       });
+      setPrevQuery(filterQuery)
+    }
+    return () => {};
+  }, [filterQuery, prevQuery, context]);
+
+  const handleChange = ({ target }) => {
+    const queryValue = target.value;
+    setSearchParams({ query: queryValue });
   };
+
+  const handleSubmit = (e) => {
+  e.preventDefault();
+  searchMovies(filterQuery)
+    .then((data) => context.handleData(data, 'results'))
+    .catch(context.handleError);
+};
 
   return (
     <>

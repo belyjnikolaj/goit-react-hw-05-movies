@@ -18,15 +18,18 @@ const FilmDetails = () => {
   const { poster_path, title, release_date, overview, genres, vote_average } = dataMovie || {};
   
 
-  useEffect(() => {
-    context.setError(null);
+ const previousMovieId = useRef(null);
+
+useEffect(() => {
+  context.setError(null);
+  if (movieId !== previousMovieId.current) {
     getMovieDetails(movieId)
       .then(context.handleDataMovie)
       .catch(context.handleError);
-      return () => {}
-  }, [movieId]);
-  
-console.log(location);
+    previousMovieId.current = movieId;
+  }
+  return () => {};
+}, [context, movieId]);
 
   return (   
     <div className={css.container}>      

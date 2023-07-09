@@ -1,4 +1,4 @@
-import { Suspense, useEffect } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { Outlet, useParams } from 'react-router-dom';
 
 import Loader from 'components/loader';
@@ -10,13 +10,21 @@ const Cast = () => {
   const context = useCastomContext()
   const { movieId } = useParams();
 
+
+  const [prevMovieId, setPrevMovieId] = useState(null);
+
   useEffect(() => {
-  context.setError(null);
-  getMovieCredits(movieId)
-    .then((data) => context.handleData(data, 'cast'))
-    .catch(context.handleError);
-    return () => {}
-  }, [movieId]);
+    context.setError(null);    
+    if (movieId !== prevMovieId) {
+      getMovieCredits(movieId)
+        .then((data) => context.handleData(data, 'cast'))
+        .catch(context.handleError);
+      setPrevMovieId(movieId);
+    }
+
+    return () => {};
+  }, [movieId, prevMovieId, context]);
+
   
   return (
     <>

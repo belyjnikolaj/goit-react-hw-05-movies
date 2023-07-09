@@ -1,6 +1,6 @@
 import Loader from 'components/loader/Loader';
 import { useCastomContext } from 'context/Context'
-import { Suspense, useEffect } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { Outlet, useParams } from 'react-router-dom';
 import { getMovieReviews } from 'services/endpointFetch';
 import  css from './Reviews.module.css';
@@ -8,14 +8,18 @@ import  css from './Reviews.module.css';
 const Reviews = () => {
   const context = useCastomContext()
   const { movieId } = useParams();
+const [prevMovieId, setPrevMovieId] = useState(null);
 
   useEffect(() => {
-  context.setError(null);
+    context.setError(null);    
+    if (movieId !== prevMovieId) {
   getMovieReviews(movieId)
     .then((data) => context.handleData(data, 'results'))
     .catch(context.handleError);
-    return () => {}
-  }, [movieId]);
+    setPrevMovieId(movieId);
+    }
+    return () => {};
+  }, [movieId, prevMovieId, context]);
   
   return (
     <>

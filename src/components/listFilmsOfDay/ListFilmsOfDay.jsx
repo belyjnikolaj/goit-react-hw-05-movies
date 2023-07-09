@@ -1,4 +1,4 @@
-import { Suspense, useEffect } from 'react';
+import { Suspense, useEffect, useRef } from 'react';
 
 import { getTrendingFilms } from 'services/endpointFetch';
 import { useCastomContext } from 'context/Context';
@@ -11,15 +11,22 @@ import Loader from 'components/loader/Loader';
 
 const ListFilmsOfDay = () => {
   const context = useCastomContext()
-  // const location = useLocation();
  
- useEffect(() => {
-  context.setError(null);
-  getTrendingFilms()
-    .then((data) => context.handleData(data, 'results'))
-    .catch(context.handleError);
-    return () => {}
- }, []);
+const contextRef = useRef(null);
+
+  // При кожному рендері оновлюємо значення contextRef
+  useEffect(() => {
+    contextRef.current = context;
+  }, [context]);
+
+  useEffect(() => {
+    const currentContext = contextRef.current;
+
+    currentContext.setError(null);
+    getTrendingFilms()
+      .then((data) => currentContext.handleData(data, 'results'))
+      .catch(currentContext.handleError);
+  }, []);
   
     return (
       <div className={css['list__box']}>
